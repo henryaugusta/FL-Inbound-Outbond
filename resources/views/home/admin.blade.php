@@ -63,7 +63,7 @@
                     </a>
                 </div>
                 <div class="col-6 col-lg-3 col-md-6">
-                    <a href="{{ url('menu/create') }}">
+                    <a href="{{ url('material/create') }}">
                         <div class="card">
                             <div class="card-body px-3 py-4-5">
                                 <div class="row">
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Manage Menu</h6>
+                                        <h6 class="text-muted font-semibold">Manage Product</h6>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
 
                 <div class="col-6 col-lg-3 col-md-6">
 
-                    <a href="{{url('stock-opname/daily-input')}}">
+                    <a href="{{url('inbound/manage')}}">
                         <div class="card">
                             <div class="card-body px-3 py-4-5">
                                 <div class="row">
@@ -94,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Input Opname</h6>
+                                        <h6 class="text-muted font-semibold">Manage Inbound</h6>
                                     </div>
                                 </div>
                             </div>
