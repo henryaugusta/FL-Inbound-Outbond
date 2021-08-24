@@ -11,7 +11,7 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{url('admin/staff/manage')}}">User</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('admin/staff/manage') }}">User</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
@@ -34,7 +34,7 @@
 
             <div class="card-body">
                 <form action="{{ url('user/update') }}" method="post">
-                    <input type="hidden" name="id" value="{{$users->id}}">
+                    <input type="hidden" name="id" value="{{ $users->id }}">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -70,11 +70,21 @@
                             </div>
 
                             <div class="form-group">
+                                <input type="hidden" name="address_id" @if ($address != null)
+                                value="{{ $address->id }}
+                                @endif
+                                ">
+                                <label for="">Address</label>
+                                <textarea class="form-control" name="address" id=""
+                                    rows="3">@if ($address != null){{ $address->address }}@endif</textarea>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="">Role User</label>
                                 <select class="form-control form-select" required name="user_role" id="">
                                     <option>Pilih User Role</option>
-                                    <option {{($users->role==1) ? 'selected' : ''}}  value="1">Admin</option>
-                                    <option {{($users->role==2) ? 'selected' : ''}} value="2">Karyawan</option>
+                                    <option {{ $users->role == 1 ? 'selected' : '' }} value="1">Admin</option>
+                                    <option {{ $users->role == 2 ? 'selected' : '' }} value="2">Karyawan</option>
                                 </select>
                             </div>
                         </div>

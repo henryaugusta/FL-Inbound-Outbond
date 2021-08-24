@@ -56,6 +56,11 @@
                                 <input type="text" name="user_contact" class="form-control"
                                     value="{{ old('user_contact') }}" placeholder="Kontak User">
                             </div>
+
+                            <div class="form-group">
+                              <label for="">Alamat</label>
+                              <textarea class="form-control" name="address" id="" rows="3"></textarea>
+                            </div>
                         </div>
 
                         <div class="col-md-6">

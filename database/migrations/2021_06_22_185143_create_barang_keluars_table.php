@@ -16,8 +16,10 @@ class CreateBarangKeluarsTable extends Migration
         Schema::create('barang_keluars', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_barang')->nullable();
+            $table->unsignedBigInteger('id_customer')->nullable();
             $table->string('jumlah')->nullable();
             $table->foreign('id_barang')->references('id')->on('materials');
+            $table->foreign('id_customer')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -59,6 +59,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/material/manage', 'MaterialController@viewManage');
 
 
+    Route::prefix('customer')->group(function(){
+        Route::get('create', [App\Http\Controllers\CustomerController::class, 'viewCreate']);
+        Route::get('{id}/delete', [App\Http\Controllers\CustomerController::class, 'destroy']);
+        Route::post('store', 'SupplierController@store');
+        Route::get('{id}/edit', 'SupplierController@viewEdit');
+        Route::post('update', 'SupplierController@update');
+        Route::get('{id}/delete', 'SupplierController@destroy');
+        Route::get('/customer/manage', 'SupplierController@viewManage');
+    
+    });
+
     Route::get('/supplier/create', [App\Http\Controllers\SupplierController::class, 'viewCreate']);
     Route::get('/supplier/{id}/delete', [App\Http\Controllers\SupplierController::class, 'destroy']);
     Route::post('/supplier/store', 'SupplierController@store');

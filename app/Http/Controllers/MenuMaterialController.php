@@ -25,11 +25,13 @@ class MenuMaterialController extends Controller
         if ($checkQuery) {
             return back()->with(["error" => "That Material already added"]);
         }
+
+
         $data = new MappingMenuMaterial();
         $data->id_material = $request->material_id;
         $data->id_menu = $request->menu_id;
         $data->amount = $request->amount;
-
+        $data->save();
 
         if ($data->save()) {
             return back()->with(["success" => "Data saved successfully"]);

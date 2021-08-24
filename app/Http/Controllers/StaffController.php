@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,9 @@ class StaffController extends Controller
 
     public function viewAdminEdit($id)
     {
-        $users = User::where('id','=',$id)->first();
-        return view('karyawan.edit')->with(compact('users'));
+        $users = User::where('id', '=', $id)->first();
+        $address = UserAddress::where('id_user', '=', $users->id)->first();
+        return view('karyawan.edit')->with(compact('users', 'address'));
     }
 
     public function viewAdminCreate()
@@ -26,14 +28,15 @@ class StaffController extends Controller
     }
 
 
-    function destroy($id){
+    function destroy($id)
+    {
         $user = User::findOrFail($id);
         if ($user->delete()) {
             if (Auth::user()->role == 1) {
-                return back()->with(["success"=>"Berhasil Menghapus User $user->name"]);
+                return back()->with(["success" => "Berhasil Menghapus User $user->name"]);
             }
-        }else{
-            return back()->with(["error"=>"Gagal Menghapus User Baru"]);
+        } else {
+            return back()->with(["error" => "Gagal Menghapus User Baru"]);
         }
     }
 
@@ -44,9 +47,9 @@ class StaffController extends Controller
             "user_email" => "required",
             "user_password" => "required",
             "user_role" => "required",
-       ];
+        ];
 
-       
+
         $this->validate($request, $validateComponent);
 
         $user = new User();
@@ -57,12 +60,20 @@ class StaffController extends Controller
         $user->role = ($request->user_role);
 
 
+
+
         if ($user->save()) {
+
+            $address = new UserAddress();
+            $address->id_user = $user->id;
+            $address->address = $request->address;
+            $address->save();
+
             if (Auth::user()->role == 1) {
-                return back()->with(["success"=>"Berhasil Menambahkan User Baru"]);
+                return back()->with(["success" => "Berhasil Menambahkan User Baru"]);
             }
         } else {
-            return back()->with(["failed"=>"Gagal Menambahkan User Baru"]);
+            return back()->with(["failed" => "Gagal Menambahkan User Baru"]);
         }
     }
 
@@ -84,13 +95,25 @@ class StaffController extends Controller
         $user->password = bcrypt($request->user_password);
         $user->role = ($request->user_role);
 
+        if ($request->address_id == null) {
+            $address = new UserAddress();
+            $address->id_user = $user->id;
+            $address->address = $request->address;
+            $address->save();
+        } else {
+            $address = UserAddress::find($request->address_id);
+            $address->id_user = $user->id;
+            $address->address = $request->address;
+            $address->save();
+        }
+
 
         if ($user->save()) {
             if (Auth::user()->role == 1) {
-                return back()->with(["success"=>"Berhasil Mengupdate Data User"]);
+                return back()->with(["success" => "Berhasil Mengupdate Data User"]);
             }
         } else {
-            return back()->with(["failed"=>"Gagal Mengupdate Data User"]);
+            return back()->with(["failed" => "Gagal Mengupdate Data User"]);
         }
     }
 }
